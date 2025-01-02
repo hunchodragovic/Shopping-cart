@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Products from "./components/Products";
 import "./App.css";
+import CartItems from "./components/CartItems";
 const dummyData = [
   {
     id: 1,
@@ -30,9 +31,11 @@ const dummyData = [
     insteadOf: 820.99,
   },
 ];
+const initialCartItems = localStorage.getItem("cartItems")? JSON.parse(localStorage.getItem("cartItems")) : [];
 function App() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cartItems, setCartItems] = useState(initialCartItems);
   useEffect(() => {
     // call the api to get the products
     const getData = async () => {
@@ -43,9 +46,13 @@ function App() {
     };
     getData();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  } , [cartItems]);
   return (
     <div className="app-container">
-      {isLoading ? <h1>Loading...</h1> : <Products products={products} />}
+      {isLoading ? <h1>Loading...</h1> : <Products products={products} setCartItems={setCartItems}/>}
+      <CartItems cartItems={cartItems}/>
     </div>
   );
 }
