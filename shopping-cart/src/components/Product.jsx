@@ -1,8 +1,11 @@
 import React from "react";
 import starIcon from "../assets/icons8-star-48.png";
 import { toast, Toaster } from "react-hot-toast";
+import { useContext } from "react";
+import { ShoppingCartContext } from "../context/ShoppingCartContext";
 const notify = () => toast("تمت الإضافة إلى العربة");
-const Product = ({ product , setCartItems }) => {
+const Product = ({ product }) => {
+  const {setCartItems}   = useContext(ShoppingCartContext);
   const handleClick = (product) => {
     setCartItems((prev) => [...prev, product]);
     notify();

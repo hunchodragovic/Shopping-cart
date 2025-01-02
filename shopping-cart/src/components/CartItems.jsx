@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import CartItem from "./CartItem";
-
-const CartItems = ({cartItems}) => {
+import { ShoppingCartContext } from "../context/ShoppingCartContext";
+const CartItems = () => {
+const { cartItems } = useContext(ShoppingCartContext);
   return (
     <div>
       <h1>Cart {cartItems.length}</h1>
